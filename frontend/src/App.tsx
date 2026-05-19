@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,9 +8,9 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js'
-import { Scatter } from 'react-chartjs-2'
-import './App.css'
+} from "chart.js";
+import { Scatter } from "react-chartjs-2";
+import "./App.css";
 
 ChartJS.register(
   CategoryScale,
@@ -19,46 +19,46 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
-)
+  Legend,
+);
 
 interface ApiResponse {
-  message: string
+  message: string;
 }
 
 interface DataPoint {
-  x: number
-  y: number
+  x: number;
+  y: number;
 }
 
 interface ChartData {
-  data: DataPoint[]
-  title: string
-  x_title: string
-  y_title: string
+  data: DataPoint[];
+  title: string;
+  x_title: string;
+  y_title: string;
 }
 
 function App() {
-  const [apiData, setApiData] = useState<ApiResponse | null>(null)
-  const [chartData, setChartData] = useState<ChartData | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [apiData, setApiData] = useState<ApiResponse | null>(null);
+  const [chartData, setChartData] = useState<ChartData | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Fetch both hello message and chart data
     Promise.all([
-      fetch('/api/hello').then(response => response.json()),
-      fetch('/api/data').then(response => response.json())
+      fetch("/api/hello").then((response) => response.json()),
+      fetch("/api/data").then((response) => response.json()),
     ])
       .then(([helloData, dataResponse]) => {
-        setApiData(helloData)
-        setChartData(dataResponse)
-        setLoading(false)
+        setApiData(helloData);
+        setChartData(dataResponse);
+        setLoading(false);
       })
-      .catch(error => {
-        console.error('Error:', error)
-        setLoading(false)
-      })
-  }, [])
+      .catch((error) => {
+        console.error("Error:", error);
+        setLoading(false);
+      });
+  }, []);
 
   const chartOptions = {
     responsive: true,
@@ -68,10 +68,10 @@ function App() {
       },
       title: {
         display: true,
-        text: chartData?.title || 'Hello world!',
+        text: chartData?.title || "Hello world!",
         font: {
-          size: 20
-        }
+          size: 20,
+        },
       },
     },
     scales: {
@@ -79,35 +79,35 @@ function App() {
         display: true,
         title: {
           display: true,
-          text: chartData?.x_title || 'Apps'
-        }
+          text: chartData?.x_title || "Apps",
+        },
       },
       y: {
         display: true,
         title: {
           display: true,
-          text: chartData?.y_title || 'Fun with data'
-        }
-      }
-    }
-  }
+          text: chartData?.y_title || "Fun with data",
+        },
+      },
+    },
+  };
 
   const scatterData = {
     datasets: [
       {
         data: chartData?.data || [],
-        backgroundColor: 'rgba(255, 99, 132, 0.8)',
-        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: "rgba(255, 99, 132, 0.8)",
+        borderColor: "rgba(255, 99, 132, 1)",
         pointRadius: 4,
       },
     ],
-  }
+  };
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>🚀 Node.js + FastAPI Hello World</h1>
-        
+        <h1>🚀 Node.js + FastAPI Hello World from github</h1>
+
         {loading ? (
           <p>Loading...</p>
         ) : (
@@ -119,7 +119,7 @@ function App() {
             ) : (
               <p>Failed to connect to API</p>
             )}
-            
+
             {chartData && (
               <div className="chart-container">
                 <Scatter data={scatterData} options={chartOptions} />
@@ -129,7 +129,7 @@ function App() {
         )}
       </header>
     </div>
-  )
+  );
 }
 
-export default App 
+export default App;
