@@ -1,0 +1,217 @@
+<mxfile host="app.diagrams.net" modified="2026-05-20T00:00:00.000Z" agent="Claude" version="21.0.0" type="device">
+  <diagram id="medallion-arch" name="Medallion Architecture">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ===== TITLE ===== -->
+        <mxCell id="2" value="NCP — Databricks Medallion Architecture" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="30" y="4" width="1640" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- 00_LANDING                                                    -->
+        <!-- ============================================================ -->
+        <mxCell id="L0" value="00_LANDING" style="swimlane;startSize=40;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=15;fontColor=#003366;" vertex="1" parent="1">
+          <mxGeometry x="30" y="40" width="330" height="720" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L1" value="User CSV Uploads" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=2;fontSize=11;fontColor=#003366;" vertex="1" parent="L0">
+          <mxGeometry x="15" y="50" width="300" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L2" value="Volume: input_data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bcd4e6;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" vertex="1" parent="L0">
+          <mxGeometry x="15" y="88" width="300" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L3" value="file_1.csv" style="shape=document;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="L0">
+          <mxGeometry x="25" y="153" width="115" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L4" value="file_2.csv" style="shape=document;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="L0">
+          <mxGeometry x="190" y="153" width="115" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L5" value="file_n.csv" style="shape=document;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="L0">
+          <mxGeometry x="108" y="260" width="115" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L6" value="(additional CSV files as needed)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontColor=#6c8ebf;" vertex="1" parent="L0">
+          <mxGeometry x="30" y="352" width="270" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L7" value="CSV files uploaded by users land directly in the Databricks Volume &lt;b&gt;input_data&lt;/b&gt;. No transformation occurs at this layer." style="text;html=1;strokeColor=#6c8ebf;fillColor=#ffffff;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;" vertex="1" parent="L0">
+          <mxGeometry x="15" y="615" width="300" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- 01_BRONZE                                                     -->
+        <!-- ============================================================ -->
+        <mxCell id="B0" value="01_BRONZE" style="swimlane;startSize=40;fillColor=#fce5cd;strokeColor=#c7682e;fontStyle=1;fontSize=15;fontColor=#7f3f00;" vertex="1" parent="1">
+          <mxGeometry x="400" y="40" width="330" height="720" as="geometry" />
+        </mxCell>
+
+        <mxCell id="B1" value="Raw Ingestion" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=2;fontSize=11;fontColor=#7f3f00;" vertex="1" parent="B0">
+          <mxGeometry x="15" y="50" width="300" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="B2" value="bronze.file_1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#fce5cd;strokeColor=#c7682e;fontSize=11;" vertex="1" parent="B0">
+          <mxGeometry x="85" y="95" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="B3" value="bronze.file_2" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#fce5cd;strokeColor=#c7682e;fontSize=11;" vertex="1" parent="B0">
+          <mxGeometry x="85" y="205" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="B4" value="bronze.file_n" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#fce5cd;strokeColor=#c7682e;fontSize=11;" vertex="1" parent="B0">
+          <mxGeometry x="85" y="315" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="B5" value="One Delta table per CSV file. Only &lt;b&gt;selected columns&lt;/b&gt; are extracted from each source file — raw, unvalidated." style="text;html=1;strokeColor=#c7682e;fillColor=#ffffff;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;" vertex="1" parent="B0">
+          <mxGeometry x="15" y="615" width="300" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- 02_SILVER                                                     -->
+        <!-- ============================================================ -->
+        <mxCell id="S0" value="02_SILVER" style="swimlane;startSize=40;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=15;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="770" y="40" width="330" height="720" as="geometry" />
+        </mxCell>
+
+        <mxCell id="S1" value="Validation &amp; Cleansing" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=2;fontSize=11;fontColor=#333333;" vertex="1" parent="S0">
+          <mxGeometry x="15" y="50" width="300" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- Clean tables section header -->
+        <mxCell id="S2" value="Clean Tables" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;fontStyle=1;fontSize=11;fontColor=#3d6b34;rounded=1;" vertex="1" parent="S0">
+          <mxGeometry x="75" y="88" width="180" height="28" as="geometry" />
+        </mxCell>
+
+        <mxCell id="S3" value="silver.file_1_clean" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="S0">
+          <mxGeometry x="85" y="132" width="160" height="75" as="geometry" />
+        </mxCell>
+
+        <mxCell id="S4" value="silver.file_2_clean" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="S0">
+          <mxGeometry x="85" y="228" width="160" height="75" as="geometry" />
+        </mxCell>
+
+        <mxCell id="S5" value="silver.file_n_clean" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="S0">
+          <mxGeometry x="85" y="324" width="160" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- Errors section header -->
+        <mxCell id="S6" value="Errors" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;fontStyle=1;fontSize=11;fontColor=#b85450;rounded=1;" vertex="1" parent="S0">
+          <mxGeometry x="75" y="430" width="180" height="28" as="geometry" />
+        </mxCell>
+
+        <mxCell id="S7" value="silver.errors" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="S0">
+          <mxGeometry x="85" y="475" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="S8" value="Invalid values &amp; cross-file inconsistencies (all files)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=9;fontColor=#b85450;" vertex="1" parent="S0">
+          <mxGeometry x="30" y="558" width="270" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="S9" value="&lt;b&gt;Clean tables:&lt;/b&gt; valid rows only, one per file.&lt;br&gt;&lt;b&gt;Errors table:&lt;/b&gt; all failed/inconsistent rows across all files — surfaced to the user." style="text;html=1;strokeColor=#666666;fillColor=#ffffff;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;" vertex="1" parent="S0">
+          <mxGeometry x="15" y="615" width="300" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- 03_GOLD                                                       -->
+        <!-- ============================================================ -->
+        <mxCell id="G0" value="03_GOLD" style="swimlane;startSize=40;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=15;fontColor=#7f6000;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="40" width="530" height="720" as="geometry" />
+        </mxCell>
+
+        <mxCell id="G1" value="Business-Ready / Serving Layer" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=2;fontSize=11;fontColor=#7f6000;" vertex="1" parent="G0">
+          <mxGeometry x="15" y="50" width="500" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- Normalized column header -->
+        <mxCell id="G2" value="Normalized / Transactional" style="text;html=1;strokeColor=#d6b656;fillColor=#ffe6b3;align=center;verticalAlign=middle;fontStyle=1;fontSize=11;fontColor=#7f6000;rounded=1;" vertex="1" parent="G0">
+          <mxGeometry x="15" y="88" width="230" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="G3" value="gold.file_1_norm" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="G0">
+          <mxGeometry x="20" y="138" width="210" height="75" as="geometry" />
+        </mxCell>
+
+        <mxCell id="G4" value="gold.file_2_norm" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="G0">
+          <mxGeometry x="20" y="235" width="210" height="75" as="geometry" />
+        </mxCell>
+
+        <mxCell id="G5" value="gold.file_n_norm" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="G0">
+          <mxGeometry x="20" y="332" width="210" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- Vertical divider -->
+        <mxCell id="G6" value="" style="endArrow=none;html=1;strokeColor=#d6b656;strokeWidth=1;dashed=1;" edge="1" parent="G0">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="262" y="82" as="sourcePoint" />
+            <mxPoint x="262" y="475" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Denormalized column header -->
+        <mxCell id="G7" value="Denormalized / Analytical" style="text;html=1;strokeColor=#d6b656;fillColor=#ffe6b3;align=center;verticalAlign=middle;fontStyle=1;fontSize=11;fontColor=#7f6000;rounded=1;" vertex="1" parent="G0">
+          <mxGeometry x="280" y="88" width="230" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="G8" value="gold.file_1_analytics" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="G0">
+          <mxGeometry x="285" y="138" width="220" height="75" as="geometry" />
+        </mxCell>
+
+        <mxCell id="G9" value="gold.file_2_analytics" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="G0">
+          <mxGeometry x="285" y="235" width="220" height="75" as="geometry" />
+        </mxCell>
+
+        <mxCell id="G10" value="gold.file_n_analytics" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="G0">
+          <mxGeometry x="285" y="332" width="220" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- Gold errors table -->
+        <mxCell id="G11" value="gold.errors" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="G0">
+          <mxGeometry x="155" y="445" width="210" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="G12" value="Propagated from silver.errors — displayed to users" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=9;fontColor=#b85450;" vertex="1" parent="G0">
+          <mxGeometry x="80" y="528" width="360" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="G13" value="&lt;b&gt;Normalized:&lt;/b&gt; relational / transactional access, one set per file.&lt;br&gt;&lt;b&gt;Denormalized:&lt;/b&gt; flat tables optimized for analytics and BI.&lt;br&gt;&lt;b&gt;Errors:&lt;/b&gt; propagated from Silver, surfaced to the user UI." style="text;html=1;strokeColor=#d6b656;fillColor=#ffffff;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;" vertex="1" parent="G0">
+          <mxGeometry x="15" y="615" width="500" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- INTER-TIER ARROWS                                            -->
+        <!-- ============================================================ -->
+
+        <!-- Landing → Bronze -->
+        <mxCell id="A1" value="Ingest" style="endArrow=block;endFill=1;html=1;strokeColor=#6c8ebf;strokeWidth=3;fontStyle=1;fontSize=12;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="362" y="400" as="sourcePoint" />
+            <mxPoint x="400" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Bronze → Silver -->
+        <mxCell id="A2" value="Validate &amp; Clean" style="endArrow=block;endFill=1;html=1;strokeColor=#c7682e;strokeWidth=3;fontStyle=1;fontSize=12;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="732" y="400" as="sourcePoint" />
+            <mxPoint x="770" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Silver → Gold -->
+        <mxCell id="A3" value="Transform &amp; Enrich" style="endArrow=block;endFill=1;html=1;strokeColor=#666666;strokeWidth=3;fontStyle=1;fontSize=12;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1102" y="400" as="sourcePoint" />
+            <mxPoint x="1140" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
