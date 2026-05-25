@@ -196,3 +196,4 @@ mlflow.db
 !.claude/skills/supervisor-api-background-mode/
 !.claude/AGENTS.md
 !.claude/CLAUDE.md
+/backend/ref_files
