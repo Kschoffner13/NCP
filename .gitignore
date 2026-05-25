@@ -197,3 +197,4 @@ mlflow.db
 !.claude/AGENTS.md
 !.claude/CLAUDE.md
 /backend/ref_files
+/ref_files
