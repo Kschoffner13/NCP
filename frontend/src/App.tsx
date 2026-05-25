@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ErrorsPanel } from "./components/ErrorsPanel";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -125,6 +126,8 @@ function App() {
                 <Scatter data={scatterData} options={chartOptions} />
               </div>
             )}
+
+            <ErrorsPanel />
           </div>
         )}
       </header>

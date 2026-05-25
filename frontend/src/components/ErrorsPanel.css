@@ -1,0 +1,268 @@
+.ep-panel {
+  width: 100%;
+  max-width: 1200px;
+  background: #1e2130;
+  border-radius: 10px;
+  padding: 24px;
+  text-align: left;
+}
+
+/* Header */
+.ep-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.ep-title {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
+/* Buttons */
+.ep-btn {
+  border: none;
+  border-radius: 5px;
+  padding: 7px 18px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ep-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ep-btn-primary {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.ep-btn-primary:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.ep-btn-ghost {
+  background: #2d3448;
+  color: #cbd5e1;
+}
+
+.ep-btn-ghost:hover:not(:disabled) {
+  background: #374162;
+}
+
+/* Summary cards */
+.ep-summary {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.ep-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 22px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  min-width: 130px;
+  background: #252a3d;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.ep-card--errors {
+  border-color: #ef4444;
+}
+
+.ep-card--clean {
+  border-color: #22c55e;
+}
+
+.ep-card--active {
+  background: #2d3654;
+}
+
+.ep-card:hover {
+  background: #2d3654;
+}
+
+.ep-card-count {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ep-card--errors .ep-card-count {
+  color: #ef4444;
+}
+
+.ep-card--clean .ep-card-count {
+  color: #22c55e;
+}
+
+.ep-card-label {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin-top: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Filters */
+.ep-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.ep-select {
+  background: #252a3d;
+  color: #e2e8f0;
+  border: 1px solid #374162;
+  border-radius: 5px;
+  padding: 7px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.ep-total {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+/* Table */
+.ep-table-wrap {
+  overflow-x: auto;
+  border-radius: 6px;
+  border: 1px solid #2d3448;
+}
+
+.ep-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.ep-table th {
+  background: #252a3d;
+  color: #94a3b8;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.ep-table td {
+  padding: 10px 14px;
+  color: #cbd5e1;
+  border-top: 1px solid #1a1f2e;
+  vertical-align: middle;
+}
+
+.ep-table tr:hover td {
+  background: #252a3d;
+}
+
+.ep-mono {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.82rem;
+}
+
+.ep-value {
+  color: #fbbf24;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ep-empty {
+  color: #4b5563;
+  font-style: italic;
+}
+
+.ep-message {
+  color: #94a3b8;
+  font-size: 0.82rem;
+}
+
+.ep-source-tag {
+  display: inline-block;
+  background: #1e3a5f;
+  color: #93c5fd;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+/* Error type badges */
+.ep-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ep-badge--null {
+  background: #d97706;
+}
+
+.ep-badge--invalid_range {
+  background: #dc2626;
+}
+
+.ep-badge--invalid_format {
+  background: #ea580c;
+}
+
+.ep-badge--invalid_value {
+  background: #7c3aed;
+}
+
+/* Pagination */
+.ep-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 16px;
+}
+
+.ep-page-info {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+/* State messages */
+.ep-state-msg {
+  text-align: center;
+  padding: 28px;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.ep-state-msg--error {
+  color: #ef4444;
+}
+
+.ep-state-msg--clean {
+  color: #22c55e;
+}
