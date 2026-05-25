@@ -14,12 +14,9 @@
 
 import re
 from datetime import datetime, timezone
-from typing import Any
 
-# Declared as Any so static analysis tools don't flag attribute access.
-# The Databricks runtime replaces these with real objects at execution time.
-spark:   Any = None
-dbutils: Any = None
+# `spark` and `dbutils` are injected by the Databricks runtime before execution.
+# IDE warnings about them being undefined can be ignored.
 
 # ---------------------------------------------------------------------------
 # Config — edit these to match your environment
