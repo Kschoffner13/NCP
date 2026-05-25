@@ -22,7 +22,7 @@ from datetime import datetime, timezone
 # Config — edit these to match your environment
 # ---------------------------------------------------------------------------
 
-CATALOG       = "NCP"
+CATALOG       = "network_capacity_planning"   # your Databricks catalog name
 RAW_SCHEMA    = "00_landing"
 BRONZE_SCHEMA = "01_bronze"
 VOLUME        = "input_data"
