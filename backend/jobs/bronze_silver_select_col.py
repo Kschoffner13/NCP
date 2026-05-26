@@ -52,13 +52,13 @@ COLUMN_MAP = [
     ("latitude",          "latitude",           "DOUBLE"),
     ("longitude",         "longitude",          "DOUBLE"),
     ("long_term_plan",    "long_term_plan",     "STRING"),
-    ("cx_count",          "cx_count",           "INT"),
+    ("cx_count",          "cx_count",           "DOUBLE"),
     ("network_function",  "network_function",   "STRING"),
     ("province",          "province",           "STRING"),
     ("vre_owner_company", "vre_owner_company",  "STRING"),
     ("vre_type",          "vre_type",           "STRING"),
     ("vre_description",   "vre_description",    "STRING"),
-    ("total_fw_ucd",      "total_fw_used",      "INT"),
+    ("total_fw_ucd",      "total_fw_used",      "DOUBLE"),
 ]
 
 # Fields that must be non-null and non-empty in every row
