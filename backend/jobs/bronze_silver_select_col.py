@@ -208,7 +208,7 @@ TABLE_CONFIG = [
         ],
     }, 
     {
-        "source": "xi_bh_connections_analysis",
+        "source": "xi_bh_connections_analusis",
         "columns": [
             ("upstreamsite_site_code", "upstream_site_code", "STRING"),
             ("downstreamsite_site_code", "downstream_site_code", "STRING"),
