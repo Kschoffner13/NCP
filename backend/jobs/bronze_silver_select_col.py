@@ -82,8 +82,8 @@ TABLE_CONFIG = [
             ("circuit_expiry", "circuit_expiry", "STRING"),
             ("site_b_site_name", "site_b_site_name", "STRING"),
             ("access_capacity_gbps", "access_capacity_gbps", "DOUBLE"),
-            ("purchased_capacity_mbps", "purchased_capacity_mbps", "DOUBLE"),
-            ("mrc", "mrc", "STRING"),
+            ("purchased_bandwidth_mbps", "purchased_bandwidth_mbps", "DOUBLE"),
+            ("mrc", "mrc", "DOUBLE"),
             ("site_a_latitude", "site_a_latitude", "DOUBLE"),
             ("site_a_longitude", "site_a_longitude", "DOUBLE"),
             ("circuit_status", "circuit_status", "STRING"),
@@ -121,7 +121,7 @@ TABLE_CONFIG = [
         "columns": [
            ("circuit_status", "circuit_status", "STRING"),
            ("circuit_site_a_province", "circuit_site_a_province", "STRING"),
-           ("circuit_site_a_code", "circuit_site_a_code", "STRING"),
+           ("circuit_site_a_site_code", "circuit_site_a_site_code", "STRING"),
            ("circuit_name_location", "circuit_name_location", "STRING"),
            ("network_name", "network_name", "STRING"),
            ("vendor", "vendor", "STRING"),
@@ -268,6 +268,8 @@ def process_table(cfg: dict) -> int:
     select_exprs = []
     for bronze_col, silver_col, dtype in valid_map:
         col = F.trim(F.col(bronze_col))
+        if dtype in ("INT", "DOUBLE"):
+            col = F.regexp_replace(col, r"[,$]", "")
         if dtype != "STRING":
             col = col.cast(dtype)
         select_exprs.append(col.alias(silver_col))
